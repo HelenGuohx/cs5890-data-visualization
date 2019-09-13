@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+	<meta charset="UTF-8">
+	<title>Homework 2</title>
+	<style>
+		circle {
+			fill: steelblue;
+		}
+		line{
+			stroke:darkGrey;
+			stroke-width:6;
+		}
+
+		.label{
+			fill:white;
+			font-weight: bold;
+			text-anchor: middle;
+			font-size: 16px;
+			letter-spacing: 3px;
+		}
+
+    </style>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="js/Tree.js"></script>
+    <script src="js/Node.js"></script>
+   	<!-- <script type="application/javascript" src="js/script.js"></script> -->
+
+
+</head>
+<body>
+
+<script type="text/javascript">
+	let data = [{
+		"name":"Animal",
+		"parent":"root"
+		},
+		{
+		"name":"Reptile",
+		"parent":"Animal"		
+		},
+	];
+	let tree = new Tree(data);
+	tree.buildTree();
+	tree.renderTree();
+</script>	
+<!--
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script> 
+
+<script type="text/javascript">
+	$("body").ready(function() {
+		$.getJSON("data/Tree.json", function(data) {
+		    console.log(data); // this will show the info it in firebug console
+		    let tree = new Tree(data);
+			tree.buildTree();
+			tree.renderTree();
+})
+
+	} );
+
+
+</script>
+
+-->
+</body>
+</html>
