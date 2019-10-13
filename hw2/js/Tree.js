@@ -10,7 +10,6 @@ class Tree {
 		var nodeList = [];
 		var parentMap = new Map();
 
-		//init node
 		for (var i = 0; i < json.length; i ++ ) {
 			let node = new Node(json[i].name, json[i].parent)
 			nodeList.push(node)
@@ -70,17 +69,8 @@ class Tree {
 	/**
 	 * Recursive function that assign positions to each node
 	 */
-	assignPosition2(node, position) {
-		node.position = position
-		// levelPositionMap.get(node.level)
-		if(node.children) {
-			var positionStartSameLevel = position
-				node.children.forEach( nodeChild => {
-				this.assignPosition(nodeChild, positionStartSameLevel)
-				positionStartSameLevel ++
-			})
-		}
-	}
+
+
 	// Iteration that gets the arrays of all the nodes in the same level
 	assignPosition(node, position) {
 		var nodeListSameLevel = [node];
@@ -91,7 +81,6 @@ class Tree {
 			for(let i = 0; i < nodeListSameLevel.length; i ++ ) {
 			 	temp  = temp.concat(nodeListSameLevel[i].children)
 			};
-			console.log(temp);
 			if(!temp || !temp.length) {
 				break
 			};
@@ -120,8 +109,6 @@ class Tree {
 	convertTreeToArray(node, nodeList) {
 
 		if (!node.children || !node.children.length) {
-			// console.log(nodeList);
-			// var nodeList_ = nodeList
 			return nodeList
 		} 
 		node.children.forEach( nodeChild => {
@@ -143,6 +130,7 @@ class Tree {
 		let data = [this.nodeStart];
 		this.convertTreeToArray(this.nodeStart, data) ;
 		console.log("data",data);
+		
 		var selections = svg.selectAll('line')
 		   .data(data)
 		   .enter()
