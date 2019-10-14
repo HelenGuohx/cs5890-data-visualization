@@ -48,7 +48,7 @@ tbody tr .game {
     background-color: #f0f0f0;
 }
 
-/*tbody tr .game:hover {*/
+/*tbody tr .game:hover {
     /*background-color: #dbdbdb;*/
 /*}*/
 
@@ -110,6 +110,10 @@ header {
     stroke-width: 3px;
     r:5;
 }
+#smallBar {
+    y: 10;
+    height:5;
+}
 
 
 .node circle {
@@ -138,6 +142,7 @@ header {
 .selected {
     stroke: #be2714;
     stroke-width: 4px;
+    fill: none;
 }
 
 .selectedLabel {
@@ -152,4 +157,8 @@ header {
     float: left;
 }
 
+
+/*tbody .result {
+    width: 2000px;
+}*/
 
