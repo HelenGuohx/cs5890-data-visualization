@@ -137,10 +137,10 @@ class BarChart {
     }
 
     function handleMouseOut(d,i) {
-      d3.select(this)
-        .style('fill', d => colorScale(d))
-        ;
-    }
+    //   d3.select(this)
+    //     .style('fill', d => colorScale(d))
+    //     ;
+     }
 
 
   }
