@@ -241,12 +241,12 @@ class ElectoralVoteChart {
 
 
           console.log("selectedStates", selectedStates);
-          electoralVoteChart.shiftChart.update(selectedStates);
+          electoralVoteChart.shiftChart.update(selectedStates, null);
         })
         ;
     this.svg.append('g')
         .attr('class', 'brush')
-        .attr('transform', 'translate(8.5, -170)')
+        .attr('transform', 'translate(8.5, -120)')
         .attr('height', 30)
         //.attr('width', groupRange.width + )
         .call(brush);

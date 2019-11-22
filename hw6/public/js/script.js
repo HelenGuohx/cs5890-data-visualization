@@ -15,6 +15,6 @@ let electoralVoteChart = new ElectoralVoteChart(shiftChart);
 d3.csv("data/yearwiseWinner.csv").then(electionWinners => {
   console.log(electionWinners);
   let yearChart = new YearChart(electoralVoteChart, tileChart,
-                                votePercentageChart, electionWinners);
+                                votePercentageChart, electionWinners, shiftChart);
   yearChart.update();
 });

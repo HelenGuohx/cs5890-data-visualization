@@ -10,12 +10,13 @@ class YearChart {
    * @param electionInfo instance of ElectionInfo
    * @param electionWinners data corresponding to the winning parties over mutiple election years
    */
-  constructor (electoralVoteChart, tileChart, votePercentageChart, electionWinners) {
+  constructor (electoralVoteChart, tileChart, votePercentageChart, electionWinners, shiftChart) {
 
     //Creating YearChart instance
     this.electoralVoteChart = electoralVoteChart;
     this.tileChart = tileChart;
     this.votePercentageChart = votePercentageChart;
+    this.shiftChart = shiftChart;
     // the data
     this.electionWinners = electionWinners;
     
@@ -58,6 +59,8 @@ class YearChart {
    */
   update () {
 
+    let yearChart = this;
+
     //Domain definition for global color scale
     let domain = [-60, -50, -40, -30, -20, -10, 0, 10, 20, 30, 40, 50, 60];
 
@@ -68,6 +71,45 @@ class YearChart {
     this.colorScale = d3.scaleQuantile()
       .domain(domain)
       .range(range);
+
+    //******* TODO: EXTRA CREDIT *******
+
+    //Implement brush on the year chart created above.
+    //Implement a call back method to handle the brush end event.
+    //Call the update method of shiftChart and pass the data corresponding to brush selection.
+    //HINT: Use the .brush class to style the brush.
+    //let groupRange = this.svg.select('g').node().getBoundingClientRect();
+    //console.log('groupRange', groupRange);
+
+    let brush = d3.brushX().extent([
+        //[groupRange.left, groupRange.top], [groupRange.left + groupRange.width, groupRange.top + groupRange.height]
+        [0,50],[2000, 120]
+
+        ])
+        .on('end', function(){
+          console.log("brush", d3.event);
+          let selectedRange = d3.event.selection;
+          let startPoint = Math.ceil( (selectedRange[0] - 50) / 100);
+          let endPoint = Math.floor( (selectedRange[1] - 50) / 100) ;
+          let selectedYears = [];
+          for(let i = startPoint; i <= endPoint; i++){
+             selectedYears.push( 1940 + 4*i);
+           };
+
+         console.log("selectedStates", selectedYears);
+          yearChart.shiftChart.update(null, selectedYears);
+        })
+        ;
+    this.svg.append('g')
+        .attr('class', 'brush')
+        .attr('transform', 'translate(20, -50)')
+        .attr('height', 50)
+        .call(brush);
+
+    this.svg.select('.overlay')
+        .attr('x', 0)
+        ;
+
 
     // ******* TODO: PART I *******
     //create yearscale for circle position   ????
@@ -119,7 +161,7 @@ class YearChart {
     //HINT: You can get the d3 selection that was clicked on using
     //   d3.select(d3.event.target)
     //HINT: Use .highlighted class to style the highlighted circle
-    let yearChart = this
+    
     d3.select('#year-chart svg')
       .selectAll('circle')
       .on('mouseover', function() {
@@ -140,6 +182,7 @@ class YearChart {
               yearChart.electoralVoteChart.update(selectedYearData, yearChart.colorScale);
               yearChart.votePercentageChart.update(selectedYearData );
               yearChart.tileChart.update(selectedYearData, yearChart.colorScale);
+             // yearChart.shiftChart.update(selectedYearData, null, true);
           })
 
       })
@@ -149,12 +192,7 @@ class YearChart {
     // the update methods of other visualizations
 
 
-    //******* TODO: EXTRA CREDIT *******
 
-    //Implement brush on the year chart created above.
-    //Implement a call back method to handle the brush end event.
-    //Call the update method of shiftChart and pass the data corresponding to brush selection.
-    //HINT: Use the .brush class to style the brush.
 
   }
 
